@@ -1,3 +1,7 @@
+
+import asciiPanel.AsciiPanel;
+import java.awt.Color;
+
 /*
  * Copyright (C) 2015 Aeranythe Echosong
  *
@@ -15,19 +19,30 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package screen;
-
-import asciiPanel.AsciiPanel;
-
 /**
  *
  * @author Aeranythe Echosong
  */
-public class WinScreen extends RestartScreen {
-    
-    @Override
-    public void displayOutput(AsciiPanel terminal) {
-        terminal.write("You won! Press enter to try again.", 0, 0);
+public enum Tile {
+
+    FLOOR((char) 250, AsciiPanel.yellow),
+    WALL((char) 177, AsciiPanel.yellow),
+    BOUNDS('x', AsciiPanel.brightBlack);
+
+    private char glyph;
+
+    public char glyph() {
+        return glyph;
     }
-    
+
+    private Color color;
+
+    public Color color() {
+        return color;
+    }
+
+    Tile(char glyph, Color color) {
+        this.glyph = glyph;
+        this.color = color;
+    }
 }

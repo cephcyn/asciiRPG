@@ -39,8 +39,9 @@ public class PlayScreen implements Screen {
                 return new LoseScreen();
             case KeyEvent.VK_DOWN:
                 return new WinScreen();
+            default:
+                return this;
         }
-        return this;
     }
 
 }

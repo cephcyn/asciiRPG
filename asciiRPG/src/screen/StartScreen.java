@@ -34,10 +34,11 @@ public class StartScreen implements Screen {
 
     @Override
     public Screen respondToUserInput(KeyEvent key) {
-        if (key.getKeyCode() == KeyEvent.VK_ENTER) {
-            return new PlayScreen();
-        } else {
-            return this;
+        switch (key.getKeyCode()) {
+            case KeyEvent.VK_ENTER:
+                return new PlayScreen();
+            default:
+                return this;
         }
     }
 
