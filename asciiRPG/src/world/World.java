@@ -1,5 +1,5 @@
+package world;
 
-import asciiPanel.AsciiPanel;
 import java.awt.Color;
 
 /*
@@ -23,26 +23,41 @@ import java.awt.Color;
  *
  * @author Aeranythe Echosong
  */
-public enum Tile {
+public class World {
 
-    FLOOR((char) 250, AsciiPanel.yellow),
-    WALL((char) 177, AsciiPanel.yellow),
-    BOUNDS('x', AsciiPanel.brightBlack);
+    private Tile[][] tiles;
+    private int width;
+    private int height;
 
-    private char glyph;
+    public static final int TILE_TYPES = 2;
 
-    public char glyph() {
-        return glyph;
+    public World(Tile[][] tiles) {
+        this.tiles = tiles;
+        this.width = tiles.length;
+        this.height = tiles[0].length;
     }
 
-    private Color color;
-
-    public Color color() {
-        return color;
+    public Tile tile(int x, int y) {
+        if (x < 0 || x >= width || y < 0 || y >= height) {
+            return Tile.BOUNDS;
+        } else {
+            return tiles[x][y];
+        }
     }
 
-    Tile(char glyph, Color color) {
-        this.glyph = glyph;
-        this.color = color;
+    public char glyph(int x, int y) {
+        return tiles[x][y].glyph();
+    }
+
+    public Color color(int x, int y) {
+        return tiles[x][y].color();
+    }
+
+    public int width() {
+        return width;
+    }
+
+    public int height() {
+        return height;
     }
 }
