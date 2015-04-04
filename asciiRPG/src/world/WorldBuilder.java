@@ -61,11 +61,14 @@ public class WorldBuilder {
         }
         for (int width = 0; width < this.width; width++) {
             for (int height = 0; height < this.height; height++) {
+                //Surrounding walls and floor
                 int surrwalls = 0;
                 int surrfloor = 0;
+                
+                //Check the tiles in a 3x3 area around center tile
                 for (int dwidth = -1; dwidth < 2; dwidth++) {
                     for (int dheight = -1; dheight < 2; dheight++) {
-                        if (width + dwidth < 0 || width + dwidth > this.width || height + dheight < 0 || height + dheight > this.height) {
+                        if (width + dwidth < 0 || width + dwidth >= this.width || height + dheight < 0 || height + dheight >= this.height) {
                             continue;
                         } else if (tiles[width + dwidth][height + dheight] == Tile.FLOOR) {
                             surrfloor++;
