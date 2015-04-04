@@ -1,3 +1,4 @@
+package world;
 
 import asciiPanel.AsciiPanel;
 import java.awt.Color;
