@@ -15,19 +15,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package screen;
-
-import asciiPanel.AsciiPanel;
+package world;
 
 /**
  *
  * @author Aeranythe Echosong
  */
-public class WinScreen extends RestartScreen {
-
-    @Override
-    public void displayOutput(AsciiPanel terminal) {
-        terminal.write("You won! Press enter to go again.", 0, 0);
-    }
+class CreatureAI {
 
 }

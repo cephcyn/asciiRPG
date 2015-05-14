@@ -65,39 +65,22 @@ public class PlayScreen implements Screen {
     public void displayOutput(AsciiPanel terminal) {
         displayTiles(terminal, getScrollX(), getScrollY());
         terminal.write('X', centerX - getScrollX(), centerY - getScrollY());
-
     }
 
     @Override
     public Screen respondToUserInput(KeyEvent key) {
         switch (key.getKeyCode()) {
             case KeyEvent.VK_LEFT:
-            case KeyEvent.VK_H:
                 scrollBy(-1, 0);
                 break;
             case KeyEvent.VK_RIGHT:
-            case KeyEvent.VK_L:
                 scrollBy(1, 0);
                 break;
             case KeyEvent.VK_UP:
-            case KeyEvent.VK_K:
                 scrollBy(0, -1);
                 break;
             case KeyEvent.VK_DOWN:
-            case KeyEvent.VK_J:
                 scrollBy(0, 1);
-                break;
-            case KeyEvent.VK_Y:
-                scrollBy(-1, -1);
-                break;
-            case KeyEvent.VK_U:
-                scrollBy(1, -1);
-                break;
-            case KeyEvent.VK_B:
-                scrollBy(-1, 1);
-                break;
-            case KeyEvent.VK_N:
-                scrollBy(1, 1);
                 break;
         }
         return this;

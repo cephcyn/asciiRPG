@@ -46,8 +46,10 @@ public class WorldBuilder {
                 switch (rand.nextInt(World.TILE_TYPES)) {
                     case 0:
                         tiles[width][height] = Tile.FLOOR;
+                        break;
                     case 1:
                         tiles[width][height] = Tile.WALL;
+                        break;
                 }
             }
         }
@@ -64,7 +66,7 @@ public class WorldBuilder {
                 //Surrounding walls and floor
                 int surrwalls = 0;
                 int surrfloor = 0;
-                
+
                 //Check the tiles in a 3x3 area around center tile
                 for (int dwidth = -1; dwidth < 2; dwidth++) {
                     for (int dheight = -1; dheight < 2; dheight++) {

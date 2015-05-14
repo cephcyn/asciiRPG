@@ -15,19 +15,59 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package screen;
+package world;
 
-import asciiPanel.AsciiPanel;
+import java.awt.Color;
 
 /**
  *
  * @author Aeranythe Echosong
  */
-public class WinScreen extends RestartScreen {
+public class Creature {
 
-    @Override
-    public void displayOutput(AsciiPanel terminal) {
-        terminal.write("You won! Press enter to go again.", 0, 0);
+    private World world;
+
+    private int x;
+
+    public void setX(int x) {
+        this.x = x;
     }
 
+    public int x() {
+        return x;
+    }
+
+    private int y;
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int y() {
+        return y;
+    }
+
+    private char glyph;
+
+    public char glyph() {
+        return this.glyph;
+    }
+
+    private Color color;
+
+    public Color color() {
+        return this.color;
+    }
+
+    private CreatureAI ai;
+
+    public void setAI(CreatureAI ai) {
+        this.ai = ai;
+    }
+
+    public Creature(World world, char glyph, Color color) {
+        this.world = world;
+        this.glyph = glyph;
+        this.color = color;
+    }
 }
