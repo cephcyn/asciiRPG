@@ -60,4 +60,23 @@ public class World {
     public int height() {
         return height;
     }
+
+    public void dig(int x, int y) {
+        if (tile(x, y).isDiggable()) {
+            tiles[x][y] = Tile.FLOOR;
+        }
+    }
+
+    public void addAtEmptyLocation(Creature creature) {
+        int x;
+        int y;
+
+        do {
+            x = (int) (Math.random() * this.width);
+            y = (int) (Math.random() * this.height);
+        } while (!tile(x, y).isGround());
+
+        creature.setX(x);
+        creature.setY(y);
+    }
 }

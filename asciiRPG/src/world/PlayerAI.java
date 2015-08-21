@@ -21,15 +21,18 @@ package world;
  *
  * @author Aeranythe Echosong
  */
-class CreatureAI {
+public class PlayerAI extends CreatureAI {
 
-    protected Creature creature;
-
-    public CreatureAI(Creature creature) {
-        this.creature = creature;
-        this.creature.setAI(this);
+    public PlayerAI(Creature creature) {
+        super(creature);
     }
 
     public void onEnter(int x, int y, Tile tile) {
+        if (tile.isGround()) {
+            creature.setX(x);
+            creature.setY(y);
+        } else if (tile.isDiggable()) {
+            creature.dig(x, y);
+        }
     }
 }

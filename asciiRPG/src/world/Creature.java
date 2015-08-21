@@ -65,6 +65,14 @@ public class Creature {
         this.ai = ai;
     }
 
+    public void dig(int wx, int wy) {
+        world.dig(wx, wy);
+    }
+
+    public void moveBy(int mx, int my) {
+        ai.onEnter(x + mx, y + my, world.tile(x + mx, y + my));
+    }
+
     public Creature(World world, char glyph, Color color) {
         this.world = world;
         this.glyph = glyph;

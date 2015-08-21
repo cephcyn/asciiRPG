@@ -28,6 +28,7 @@ import java.awt.event.KeyEvent;
 public class PlayScreen implements Screen {
 
     private World world;
+    private Creature player;
     private int centerX;
     private int centerY;
     private int screenWidth;
@@ -37,17 +38,15 @@ public class PlayScreen implements Screen {
         screenWidth = 80;
         screenHeight = 21;
         createWorld();
+        
+        CreatureFactory creatureFactory = new CreatureFactory(this.world);
+        player = creatureFactory.newPlayer();
     }
 
     private void createWorld() {
         world = new WorldBuilder(90, 31)
                 .makeCaves()
                 .build();
-    }
-
-    private void scrollBy(int mx, int my) {
-        centerX = Math.max(0, Math.min(centerX + mx, world.width() - 1));
-        centerY = Math.max(0, Math.min(centerY + my, world.height() - 1));
     }
 
     private void displayTiles(AsciiPanel terminal, int left, int top) {
@@ -64,34 +63,34 @@ public class PlayScreen implements Screen {
     @Override
     public void displayOutput(AsciiPanel terminal) {
         displayTiles(terminal, getScrollX(), getScrollY());
-        terminal.write('X', centerX - getScrollX(), centerY - getScrollY());
+        terminal.write(player.glyph(), player.x() - getScrollX(), player.y() - getScrollY(), player.color());
     }
 
     @Override
     public Screen respondToUserInput(KeyEvent key) {
         switch (key.getKeyCode()) {
             case KeyEvent.VK_LEFT:
-                scrollBy(-1, 0);
+                player.moveBy(-1, 0);
                 break;
             case KeyEvent.VK_RIGHT:
-                scrollBy(1, 0);
+                player.moveBy(1, 0);
                 break;
             case KeyEvent.VK_UP:
-                scrollBy(0, -1);
+                player.moveBy(0, -1);
                 break;
             case KeyEvent.VK_DOWN:
-                scrollBy(0, 1);
+                player.moveBy(0, 1);
                 break;
         }
         return this;
     }
 
     public int getScrollX() {
-        return Math.max(0, Math.min(centerX - screenWidth / 2, world.width() - screenWidth));
+        return Math.max(0, Math.min(player.x() - screenWidth / 2, world.width() - screenWidth));
     }
 
     public int getScrollY() {
-        return Math.max(0, Math.min(centerY - screenHeight / 2, world.height() - screenHeight));
+        return Math.max(0, Math.min(player.y() - screenHeight / 2, world.height() - screenHeight));
     }
 
 }

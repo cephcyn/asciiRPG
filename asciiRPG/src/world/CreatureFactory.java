@@ -17,19 +17,25 @@
  */
 package world;
 
+import asciiPanel.AsciiPanel;
+import java.awt.Color;
+
 /**
  *
  * @author Aeranythe Echosong
  */
-class CreatureAI {
+public class CreatureFactory {
 
-    protected Creature creature;
+    private World world;
 
-    public CreatureAI(Creature creature) {
-        this.creature = creature;
-        this.creature.setAI(this);
+    public CreatureFactory(World world) {
+        this.world = world;
     }
 
-    public void onEnter(int x, int y, Tile tile) {
+    public Creature newPlayer() {
+        Creature player = new Creature(this.world, '@', AsciiPanel.brightWhite);
+        world.addAtEmptyLocation(player);
+        new PlayerAI(player);
+        return player;
     }
 }
