@@ -1,6 +1,8 @@
 package world;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 /*
  * Copyright (C) 2015 Aeranythe Echosong
@@ -28,6 +30,7 @@ public class World {
     private Tile[][] tiles;
     private int width;
     private int height;
+    private List<Creature> creatures;
 
     public static final int TILE_TYPES = 2;
 
@@ -35,6 +38,7 @@ public class World {
         this.tiles = tiles;
         this.width = tiles.length;
         this.height = tiles[0].length;
+        this.creatures = new ArrayList<>();
     }
 
     public Tile tile(int x, int y) {
@@ -74,9 +78,18 @@ public class World {
         do {
             x = (int) (Math.random() * this.width);
             y = (int) (Math.random() * this.height);
-        } while (!tile(x, y).isGround());
+        } while (!tile(x, y).isGround() || this.creature(x, y) != null);
 
         creature.setX(x);
         creature.setY(y);
+    }
+
+    public Creature creature(int x, int y) {
+        for (Creature c : this.creatures) {
+            if (c.x() == x && c.y() == y) {
+                return c;
+            }
+        }
+        return null;
     }
 }
