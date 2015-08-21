@@ -92,4 +92,8 @@ public class World {
         }
         return null;
     }
+
+    public List<Creature> getCreatures() {
+        return this.creatures;
+    }
 }

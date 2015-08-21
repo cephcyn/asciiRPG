@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Aeranythe Echosong
+ * Copyright (C) 2015 Winterstorm
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -17,32 +17,12 @@
  */
 package world;
 
-import asciiPanel.AsciiPanel;
-import java.awt.Color;
-
 /**
  *
- * @author Aeranythe Echosong
+ * @author Winterstorm
  */
-public class CreatureFactory {
-
-    private World world;
-
-    public CreatureFactory(World world) {
-        this.world = world;
-    }
-
-    public Creature newPlayer() {
-        Creature player = new Creature(this.world, '@', AsciiPanel.brightWhite);
-        world.addAtEmptyLocation(player);
-        new PlayerAI(player);
-        return player;
-    }
-    
-    public Creature newFungus() {
-        Creature fungus = new Creature(this.world, 'f', AsciiPanel.green);
-        world.addAtEmptyLocation(fungus);
-        new FungusAI(fungus);
-        return fungus;
+public class FungusAI extends CreatureAI{
+    public FungusAI(Creature creature) {
+        super(creature);
     }
 }
