@@ -97,6 +97,20 @@ public class Creature {
         return this.defenseValue;
     }
 
+    private int visionRadius;
+
+    public int visionRadius() {
+        return this.visionRadius;
+    }
+
+    public boolean canSee(int wx, int wy) {
+        return ai.canSee(wx, wy);
+    }
+
+    public Tile tile(int wx, int wy) {
+        return world.tile(wx, wy);
+    }
+
     public void dig(int wx, int wy) {
         world.dig(wx, wy);
     }
@@ -133,7 +147,7 @@ public class Creature {
         ai.onNotify(String.format(message, params));
     }
 
-    public Creature(World world, char glyph, Color color, int maxHP, int attack, int defense) {
+    public Creature(World world, char glyph, Color color, int maxHP, int attack, int defense, int visionRadius) {
         this.world = world;
         this.glyph = glyph;
         this.color = color;
@@ -141,5 +155,6 @@ public class Creature {
         this.hp = maxHP;
         this.attackValue = attack;
         this.defenseValue = defense;
+        this.visionRadius = visionRadius;
     }
 }

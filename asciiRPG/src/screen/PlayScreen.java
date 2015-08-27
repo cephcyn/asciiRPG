@@ -19,6 +19,7 @@ package screen;
 
 import world.*;
 import asciiPanel.AsciiPanel;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,14 +71,20 @@ public class PlayScreen implements Screen {
                 int wx = x + left;
                 int wy = y + top;
 
-                terminal.write(world.glyph(wx, wy), x, y, world.color(wx, wy));
+                if (player.canSee(wx, wy)) {
+                    terminal.write(world.glyph(wx, wy), x, y, world.color(wx, wy));
+                } else {
+                    terminal.write(world.glyph(wx, wy), x, y, Color.DARK_GRAY);
+                }
             }
         }
         //Show creatures
         for (Creature creature : world.getCreatures()) {
             if (creature.x() >= left && creature.x() < left + screenWidth
                     && creature.y() >= top && creature.y() < top + screenHeight) {
-                terminal.write(creature.glyph(), creature.x() - left, creature.y() - top, creature.color());
+                if (player.canSee(creature.x(), creature.y())) {
+                    terminal.write(creature.glyph(), creature.x() - left, creature.y() - top, creature.color());
+                }
             }
         }
         //Creatures can choose their next action now
