@@ -19,6 +19,7 @@ package world;
 
 import asciiPanel.AsciiPanel;
 import java.awt.Color;
+import java.util.List;
 
 /**
  *
@@ -32,17 +33,17 @@ public class CreatureFactory {
         this.world = world;
     }
 
-    public Creature newPlayer() {
-        Creature player = new Creature(this.world, '@', AsciiPanel.brightWhite);
+    public Creature newPlayer(List<String> messages) {
+        Creature player = new Creature(this.world, '@', AsciiPanel.brightWhite, 100, 20, 5);
         world.addAtEmptyLocation(player);
-        new PlayerAI(player);
+        new PlayerAI(player, messages);
         return player;
     }
-    
+
     public Creature newFungus() {
-        Creature fungus = new Creature(this.world, 'f', AsciiPanel.green);
+        Creature fungus = new Creature(this.world, 'f', AsciiPanel.green, 10, 0, 0);
         world.addAtEmptyLocation(fungus);
-        new FungusAI(fungus);
+        new FungusAI(fungus, this);
         return fungus;
     }
 }

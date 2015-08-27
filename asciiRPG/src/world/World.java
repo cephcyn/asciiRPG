@@ -82,6 +82,8 @@ public class World {
 
         creature.setX(x);
         creature.setY(y);
+
+        this.creatures.add(creature);
     }
 
     public Creature creature(int x, int y) {
@@ -95,5 +97,17 @@ public class World {
 
     public List<Creature> getCreatures() {
         return this.creatures;
+    }
+
+    public void remove(Creature target) {
+        this.creatures.remove(target);
+    }
+
+    public void update() {
+        ArrayList<Creature> toUpdate = new ArrayList<>(this.creatures);
+
+        for (Creature creature : toUpdate) {
+            creature.update();
+        }
     }
 }

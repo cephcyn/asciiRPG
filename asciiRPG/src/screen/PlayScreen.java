@@ -20,6 +20,8 @@ package screen;
 import world.*;
 import asciiPanel.AsciiPanel;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -33,18 +35,22 @@ public class PlayScreen implements Screen {
     private int centerY;
     private int screenWidth;
     private int screenHeight;
+    private List<String> messages;
+    private List<String> oldMessages;
 
     public PlayScreen() {
-        screenWidth = 80;
-        screenHeight = 21;
+        this.screenWidth = 80;
+        this.screenHeight = 21;
         createWorld();
+        this.messages = new ArrayList<String>();
+        this.oldMessages = new ArrayList<String>();
 
         CreatureFactory creatureFactory = new CreatureFactory(this.world);
         createCreatures(creatureFactory);
     }
 
     private void createCreatures(CreatureFactory creatureFactory) {
-        this.player = creatureFactory.newPlayer();
+        this.player = creatureFactory.newPlayer(this.messages);
 
         for (int i = 0; i < 8; i++) {
             creatureFactory.newFungus();
@@ -58,6 +64,7 @@ public class PlayScreen implements Screen {
     }
 
     private void displayTiles(AsciiPanel terminal, int left, int top) {
+        //Show terrain
         for (int x = 0; x < screenWidth; x++) {
             for (int y = 0; y < screenHeight; y++) {
                 int wx = x + left;
@@ -66,18 +73,37 @@ public class PlayScreen implements Screen {
                 terminal.write(world.glyph(wx, wy), x, y, world.color(wx, wy));
             }
         }
+        //Show creatures
         for (Creature creature : world.getCreatures()) {
             if (creature.x() >= left && creature.x() < left + screenWidth
-                    && creature.y() >= top && creature.y() < top + screenWidth) {
+                    && creature.y() >= top && creature.y() < top + screenHeight) {
                 terminal.write(creature.glyph(), creature.x() - left, creature.y() - top, creature.color());
             }
         }
+        //Creatures can choose their next action now
+        world.update();
+    }
+
+    private void displayMessages(AsciiPanel terminal, List<String> messages) {
+        int top = this.screenHeight - messages.size();
+        for (int i = 0; i < messages.size(); i++) {
+            terminal.write(messages.get(i), 1, top + i + 1);
+        }
+        this.oldMessages.addAll(messages);
+        messages.clear();
     }
 
     @Override
     public void displayOutput(AsciiPanel terminal) {
+        //Terrain and creatures
         displayTiles(terminal, getScrollX(), getScrollY());
+        //Player
         terminal.write(player.glyph(), player.x() - getScrollX(), player.y() - getScrollY(), player.color());
+        //Stats
+        String stats = String.format("%3d/%3d hp", player.hp(), player.maxHP());
+        terminal.write(stats, 1, 23);
+        //Messages
+        displayMessages(terminal, this.messages);
     }
 
     @Override
